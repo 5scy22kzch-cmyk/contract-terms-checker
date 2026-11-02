@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сверка договоров поставки</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Сверка условий договоров поставки</h1>
+    <div class="controls">
+      <label class="ctl">Дата проверки
+        <input type="date" id="asOf" value="2026-03-10">
+      </label>
+      <label class="btn primary">Загрузить TXT-файлы
+        <input type="file" id="fileInput" accept=".txt,text/plain" multiple hidden>
+      </label>
+      <button class="btn" id="loadSamples" type="button" title="Загрузить TXT из папки Documents рядом с приложением">Загрузить примеры</button>
+      <button class="btn ghost" id="clearAll" type="button">Очистить</button>
+    </div>
+    <p class="rule">Условия меняет только допсоглашение, подписанное обеими сторонами и вступившее в силу к дате проверки. Письма и проекты показываются отдельно и условия не меняют.</p>
+  </header>
+
+  <main>
+    <div id="drop" class="drop">Перетащите сюда TXT-файлы договоров, допсоглашений и писем. Файл с тем же именем заменяет загруженный.</div>
+
+    <section id="contractsSection" hidden>
+      <h2 id="contractsTitle">Договоры</h2>
+      <table class="grid" id="contractsTable">
+        <thead>
+          <tr><th>Договор</th><th>Поставщик</th><th>Сумма</th><th>Срок поставки</th><th>Проверка</th><th>Несогласованные изменения</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p class="hint">Нажмите на строку — откроются основания: цитаты, история изменений, связанные документы.</p>
+    </section>
+
+    <section id="qaSection" hidden>
+      <h2>Вопросы</h2>
+      <form id="qaForm" class="qa">
+        <input type="text" id="qaInput" placeholder="Например: какова сумма договора STN-102?" autocomplete="off">
+        <button class="btn primary" type="submit">Ответить</button>
+      </form>
+      <div class="chips" id="qaExamples"></div>
+      <div id="qaAnswer"></div>
+    </section>
+
+    <section id="docsSection" hidden>
+      <h2>Загруженные документы</h2>
+      <table class="grid" id="docsTable">
+        <thead><tr><th>Файл</th><th>Тип</th><th>Договор</th><th>Статус подписания</th><th>Влияние на условия</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <aside id="viewer" class="viewer" hidden>
+    <div class="viewer-head">
+      <div>
+        <div class="viewer-title" id="viewerTitle"></div>
+        <div class="viewer-meta" id="viewerMeta"></div>
+      </div>
+      <button class="btn ghost" id="viewerClose" type="button" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="viewer-body" id="viewerBody"></div>
+  </aside>
+
+  <script type="module" src="/public/app.js"></script>
+</body>
+</html>
